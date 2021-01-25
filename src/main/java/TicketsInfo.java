@@ -13,9 +13,9 @@ public class TicketsInfo {
         "origin_name": "Владивосток",
         "destination": "TLV",
         "destination_name": "Тель-Авив",
-        "departure_date": "12.05.2018",
+        "departure_date": "12.05.18",
         "departure_time": "16:20",
-        "arrival_date": "12.05.2018",
+        "arrival_date": "12.05.18",
         "arrival_time": "22:10",
         "carrier": "TK",
         "stops": 3,
@@ -35,8 +35,8 @@ public class TicketsInfo {
                     return Collections.emptyList();
                 }
 
-                Date departureDate = sdf.parse(ticket.get("departure_date") + " " + ticket.get("departure_time"));
-                Date arrivalDate = sdf.parse(ticket.get("arrival_date") + " " + ticket.get("arrival_time"));
+                Date departureDate = sdf.parse( formatDateFromShortYearToFullYear(ticket.get("departure_date").toString()) + " " + ticket.get("departure_time"));
+                Date arrivalDate = sdf.parse(formatDateFromShortYearToFullYear(ticket.get("arrival_date").toString()) + " " + ticket.get("arrival_time"));
 
                 flightTimes.add(Math.abs(new Date(arrivalDate.getTime() -  departureDate.getTime()).getTime()) / 60000); //milliseconds to minutes
 
@@ -46,5 +46,10 @@ public class TicketsInfo {
         }
 
         return flightTimes;
+    }
+
+    public static String formatDateFromShortYearToFullYear(String shortDate) {
+        StringBuffer fullDate = new StringBuffer(shortDate);
+        return fullDate.insert(shortDate.length() - 2, "20").toString();
     }
 }
