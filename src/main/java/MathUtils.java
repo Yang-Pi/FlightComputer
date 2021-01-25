@@ -15,6 +15,13 @@ public class MathUtils {
         return sum / data.size();
     }
 
+    /*
+    x = P / 100 * (N - 1), 0 < P < 100
+    V(x) = V_n + {x} * (V_{n+1} - V_n), P < 100
+    V(x) = V_n, P = 100
+
+    {x} - fraction of x
+     */
     public static Double computePercentile(List<Long> data, double percent) throws Exception {
         if (data.isEmpty() || percent < 0 || percent > 100) {
             throw new Exception();
